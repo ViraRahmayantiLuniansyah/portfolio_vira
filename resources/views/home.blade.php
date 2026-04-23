@@ -349,11 +349,14 @@
         }
 
         .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    justify-content: center;
+    max-width: 1100px;
+    margin: 0 auto; /* INI YANG BIKIN CENTER */
+}
 
         /* Enhanced About styles */
         .about-left {
@@ -1182,6 +1185,162 @@
                 grid-template-columns: repeat(4, 1fr);
             }
         }
+/* AUTO SLIDER FIX */
+.auto-slider {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin-top: 20px;
+}
+
+.auto-track {
+    display: flex;
+    width: max-content;
+    animation: scrollLeft 25s linear infinite;
+}
+
+/* PAUSE SAAT HOVER (desktop doang) */
+@media (hover: hover) {
+    .auto-track:hover {
+        animation-play-state: paused;
+    }
+}
+
+/* ANIMASI */
+@keyframes scrollLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* CARD BIAR GA HILANG */
+.cert-card,
+.project-card,
+.skill-card {
+    min-width: 250px;
+    max-width: 250px;
+    flex-shrink: 0;
+}
+
+/* MOBILE FIX (INI KUNCI NYA) */
+@media (max-width: 768px) {
+
+    .auto-track {
+        animation: scrollLeft 18s linear infinite;
+    }
+
+    .cert-card,
+    .project-card,
+    .skill-card {
+        min-width: 200px;
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .auto-track {
+        animation: scrollLeft 14s linear infinite;
+    }
+
+    .cert-card,
+    .project-card,
+    .skill-card {
+        min-width: 170px;
+        max-width: 170px;
+    }
+}
+/* TYPEWRITER FIX */
+.intro {
+    display: flex;
+    flex-wrap: wrap; /* BIAR TURUN KE BAWAH KALO KEPANJANGAN */
+    align-items: center;
+    gap: 8px;
+}
+
+.typewriter {
+    word-break: break-word;
+}
+
+/* MOBILE FIX */
+@media (max-width: 768px) {
+    .intro {
+        font-size: 1.6rem;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .typewriter {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .intro {
+        font-size: 1.3rem;
+        line-height: 1.4;
+    }
+
+    .typewriter {
+        font-size: 1.3rem;
+    }
+    /* ================= GLOBAL ANIMATION ================= */
+.reveal {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 0.8s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Variasi animasi */
+.reveal-left {
+    transform: translateX(-80px);
+}
+.reveal-right {
+    transform: translateX(80px);
+}
+.reveal-zoom {
+    transform: scale(0.8);
+}
+
+/* Saat aktif */
+.reveal.active.reveal-left,
+.reveal.active.reveal-right,
+.reveal.active.reveal-zoom {
+    transform: translateX(0) scale(1);
+}
+
+/* Smooth page load */
+body {
+    animation: fadePage 0.8s ease;
+}
+
+@keyframes fadePage {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Hover animasi tambahan */
+.skill-card:hover,
+.cert-card:hover,
+.project-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    transition: 0.3s;
+}
+}
     </style>
 </head>
 <body>
@@ -1204,7 +1363,7 @@
     </nav>
 
     <!-- Home Section -->
-    <section id="home">
+    <section id="home" class="reveal">
         <div class="home-content">
             <img src="{{ asset('images/vira profile.jpeg') }}" alt="Profile" class="profile-pic">
             <div class="home-text">
@@ -1223,7 +1382,7 @@
     </section>
 
   <!-- About Section -->
-    <section id="about">
+    <section id="about" class="reveal">
         <div class="section-content">
             <h2 class="section-title">About Me</h2>
             <div class="about-content">
@@ -1263,371 +1422,372 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills">
-        <div class="section-content">
-            <h2 class="section-title">My Skills</h2>
-            <div class="skills-grid">
+<section id="skills" class="reveal">
+    <div class="section-content">
+        <h2 class="section-title">My Skills</h2>
 
+        <div class="auto-slider">
+            <div class="auto-track">
+
+                <!-- ORIGINAL -->
                 <div class="skill-card">
                     <iconify-icon icon="vscode-icons:file-type-html"></iconify-icon>
-                    <div>
-                        <h3>HTML</h3>
-                        <p>100%</p>
-                    </div>
+                    <div><h3>HTML</h3><p>100%</p></div>
                 </div>
 
                 <div class="skill-card">
                     <iconify-icon icon="vscode-icons:file-type-css"></iconify-icon>
-                    <div>
-                        <h3>CSS</h3>
-                        <p>95%</p>
-                    </div>
+                    <div><h3>CSS</h3><p>95%</p></div>
                 </div>
 
                 <div class="skill-card">
                     <iconify-icon icon="logos:tailwindcss-icon"></iconify-icon>
-                    <div>
-                        <h3>Tailwind</h3>
-                        <p>90%</p>
-                    </div>
+                    <div><h3>Tailwind</h3><p>90%</p></div>
                 </div>
 
                 <div class="skill-card">
                     <iconify-icon icon="logos:javascript"></iconify-icon>
-                    <div>
-                        <h3>JavaScript</h3>
-                        <p>85%</p>
-                    </div>
+                    <div><h3>JavaScript</h3><p>85%</p></div>
                 </div>
 
                 <div class="skill-card">
                     <iconify-icon icon="logos:php"></iconify-icon>
-                    <div>
-                        <h3>PHP</h3>
-                        <p>90%</p>
-                    </div>
+                    <div><h3>PHP</h3><p>90%</p></div>
                 </div>
 
                 <div class="skill-card">
                     <iconify-icon icon="logos:laravel"></iconify-icon>
-                    <div>
-                        <h3>Laravel</h3>
-                        <p>90%</p>
-                    </div>
+                    <div><h3>Laravel</h3><p>90%</p></div>
                 </div>
 
                 <div class="skill-card">
                     <iconify-icon icon="logos:mysql"></iconify-icon>
-                    <div>
-                        <h3>MySQL</h3>
-                        <p>85%</p>
-                    </div>
+                    <div><h3>MySQL</h3><p>85%</p></div>
+                </div>
+
+                <!-- DUPLIKAT (WAJIB) -->
+                <div class="skill-card">
+                    <iconify-icon icon="vscode-icons:file-type-html"></iconify-icon>
+                    <div><h3>HTML</h3><p>100%</p></div>
+                </div>
+
+                <div class="skill-card">
+                    <iconify-icon icon="vscode-icons:file-type-css"></iconify-icon>
+                    <div><h3>CSS</h3><p>95%</p></div>
+                </div>
+
+                <div class="skill-card">
+                    <iconify-icon icon="logos:tailwindcss-icon"></iconify-icon>
+                    <div><h3>Tailwind</h3><p>90%</p></div>
+                </div>
+
+                <div class="skill-card">
+                    <iconify-icon icon="logos:javascript"></iconify-icon>
+                    <div><h3>JavaScript</h3><p>85%</p></div>
+                </div>
+
+                <div class="skill-card">
+                    <iconify-icon icon="logos:php"></iconify-icon>
+                    <div><h3>PHP</h3><p>90%</p></div>
+                </div>
+
+                <div class="skill-card">
+                    <iconify-icon icon="logos:laravel"></iconify-icon>
+                    <div><h3>Laravel</h3><p>90%</p></div>
+                </div>
+
+                <div class="skill-card">
+                    <iconify-icon icon="logos:mysql"></iconify-icon>
+                    <div><h3>MySQL</h3><p>85%</p></div>
                 </div>
 
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Certificates Section -->
-    <section id="certificates">
-        <div class="section-content">
-            <h2 class="section-title">Certificates</h2>
-            <div class="cert-grid">
+    <section id="certificates" class="reveal">
+    <div class="section-content">
+        <h2 class="section-title">Certificates</h2>
+
+        <div class="auto-slider">
+            <div class="auto-track">
 
                 @foreach($certificates->take(9) as $cert)
-                @php
-                    // Prefer absolute certificate_url (e.g., Google Drive link). If not present, no link is added.
-                    $link = $cert->certificate_url ?? null;
-                @endphp
-                @if($link)
-                <a href="{{ $link }}" target="_blank" rel="noopener noreferrer" class="cert-link">
-                    <div class="cert-card">
-                        <img src="{{ asset('images/certificates/' . $cert->image_url) }}" alt="{{ $cert->title }}" class="cert-img">
-                        <div class="cert-info">
-                            <h3>{{ $cert->title }}</h3>
-                            <p>{{ $cert->issuer }}</p>
-                            <p><small>{{ $cert->formatted_issue_date }}</small></p>
-                            <p>{{ $cert->description }}</p>
-                        </div>
-                    </div>
-                </a>
-                @else
                 <div class="cert-card">
-                    <img src="{{ asset('images/certificates/' . $cert->image_url) }}" alt="{{ $cert->title }}" class="cert-img">
+                    <img src="{{ asset('images/certificates/' . $cert->image_url) }}" class="cert-img">
                     <div class="cert-info">
                         <h3>{{ $cert->title }}</h3>
                         <p>{{ $cert->issuer }}</p>
                         <p><small>{{ $cert->formatted_issue_date }}</small></p>
-                        <p>{{ $cert->description }}</p>
                     </div>
                 </div>
-                @endif
+                @endforeach
+
+                @foreach($certificates->take(9) as $cert)
+                <div class="cert-card">
+                    <img src="{{ asset('images/certificates/' . $cert->image_url) }}" class="cert-img">
+                    <div class="cert-info">
+                        <h3>{{ $cert->title }}</h3>
+                        <p>{{ $cert->issuer }}</p>
+                        <p><small>{{ $cert->formatted_issue_date }}</small></p>
+                    </div>
+                </div>
                 @endforeach
 
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Projects Section -->
-    <section id="project">
-        <div class="section-content">
-            <h2 class="section-title">My Projects</h2>
-            <div class="project-grid">
+<section id="project" class="reveal">
+    <div class="section-content">
+        <h2 class="section-title">My Projects</h2>
+
+        <div class="auto-slider">
+            <div class="auto-track">
 
                 @foreach($projects->take(5) as $project)
-                @php $plink = $project->project_url ?? null; @endphp
-                @if($plink)
-                <a href="{{ $plink }}" target="_blank" rel="noopener noreferrer" class="project-link">
-                    <div class="project-card">
-                        @if($project->image_url)
-                        <img src="{{ asset('images/projects/' . $project->image_url) }}" alt="{{ $project->title }}" class="project-img">
-                        @else
-                        <div class="project-img">💼</div>
-                        @endif
-
-                        <div class="project-info">
-                            <h3>{{ $project->title }}</h3>
-                            <p>{{ $project->description }}</p>
-
-                            @if($project->technologies)
-                            <div class="project-tech">
-                                @foreach($project->technologies_array as $tech)
-                                <span class="tech-tag">{{ $tech }}</span>
-                                @endforeach
-                            </div>
-                            @endif
-
-                        </div>
-                    </div>
-                </a>
-                @else
                 <div class="project-card">
                     @if($project->image_url)
-                    <img src="{{ asset('images/projects/' . $project->image_url) }}" alt="{{ $project->title }}" class="project-img">
-                    @else
-                    <div class="project-img">💼</div>
+                        <img src="{{ asset('images/projects/' . $project->image_url) }}" class="project-img">
                     @endif
-
                     <div class="project-info">
                         <h3>{{ $project->title }}</h3>
                         <p>{{ $project->description }}</p>
-
-                        @if($project->technologies)
-                        <div class="project-tech">
-                            @foreach($project->technologies_array as $tech)
-                            <span class="tech-tag">{{ $tech }}</span>
-                            @endforeach
-                        </div>
-                        @endif
-
                     </div>
                 </div>
-                @endif
+                @endforeach
+
+                @foreach($projects->take(5) as $project)
+                <div class="project-card">
+                    @if($project->image_url)
+                        <img src="{{ asset('images/projects/' . $project->image_url) }}" class="project-img">
+                    @endif
+                    <div class="project-info">
+                        <h3>{{ $project->title }}</h3>
+                        <p>{{ $project->description }}</p>
+                    </div>
+                </div>
                 @endforeach
 
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Contact Section -->
-    <section id="contact">
-        <div class="section-content">
-            <h2 class="section-title">Get In Touch</h2>
-            
-            <div class="alert alert-success" id="successAlert"></div>
-            <div class="alert alert-error" id="errorAlert"></div>
-            
-            <form class="contact-form" id="contactForm">
-                @csrf
-                <div class="form-group">
-                    <input type="text" name="name" placeholder="Your Name" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="Your Email" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" name="subject" placeholder="Subject" required>
-                </div>
-                <div class="form-group">
-                    <textarea name="message" placeholder="Your Message" required></textarea>
-                </div>
-                <button type="submit" class="btn">Send Message</button>
-            </form>
-        </div>
-    </section>
+<section id="contact" class="reveal">
+    <div class="section-content">
+        <h2 class="section-title">Get In Touch</h2>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-text">
-                <p>&copy; {{ $settings['profile_name'] ?? 'Vira Rahmayanti Luniansyah' }}.</p>
+        <!-- ✅ Notifikasi sukses -->
+        @if(session('success'))
+            <div class="alert alert-success show">
+                {{ session('success') }}
             </div>
-            <div class="social-links">
-                <a href="https://wa.me/6281293699595" target="_blank" rel="noopener noreferrer" class="social-link">
-                    <iconify-icon icon="mdi:whatsapp" width="24" height="24"></iconify-icon>
-                </a>
-                <a href="https://www.instagram.com/virarahmayantii_?igsh=MXIwemY2eWpwb3pxbw==" target="_blank" rel="noopener noreferrer" class="social-link">
-                    <iconify-icon icon="mdi:instagram" width="24" height="24"></iconify-icon>
-                </a>
-                <a href="https://tiktok.com/@virarahmayantiii_" target="_blank" rel="noopener noreferrer" class="social-link">
-                    <iconify-icon icon="ic:baseline-tiktok" width="24" height="24"></iconify-icon>
-                </a>
-                <a href="https://www.linkedin.com/in/vira-rahmayanti-6216a8363" target="_blank" rel="noopener noreferrer" class="social-link">
-                    <iconify-icon icon="mdi:linkedin" width="24" height="24"></iconify-icon>
-                </a>
-                <a href="https://github.com/ViraRahmayantiLuniansyah" target="_blank" rel="noopener noreferrer" class="social-link">
-                    <iconify-icon icon="mdi:github" width="24" height="24"></iconify-icon>
-                </a>
+        @endif
+
+        <!-- ✅ Form -->
+        <form action="{{ route('contact.send') }}" method="POST" class="contact-form">
+            @csrf
+
+            <div class="form-group">
+                <input type="text" name="nama" placeholder="Your Name" required>
             </div>
+
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Your Email" required>
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="subject" placeholder="Subject" required>
+            </div>
+
+            <div class="form-group">
+                <textarea name="pesan" placeholder="Your Message" required></textarea>
+            </div>
+
+            <button type="submit" class="btn">Send Message</button>
+        </form>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-text">
+            <p>&copy; {{ $settings['profile_name'] ?? 'Vira Rahmayanti Luniansyah' }}.</p>
         </div>
-    </footer>
+        <div class="social-links">
+            <!-- Email -->
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=virahmayanti09@gmail.com" target="_blank" class="social-link">
+                    <iconify-icon icon="mdi:email" width="24" height="24"></iconify-icon>
+            </a>
 
-    <script>
-        // Hamburger Menu
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
+            <!-- WhatsApp -->
+            <a href="https://wa.me/6281293699595" target="_blank" rel="noopener noreferrer" class="social-link">
+                <iconify-icon icon="mdi:whatsapp" width="24" height="24"></iconify-icon>
+            </a>
 
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navLinks.classList.toggle('active');
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/virarahmayantii_" target="_blank" rel="noopener noreferrer" class="social-link">
+                <iconify-icon icon="mdi:instagram" width="24" height="24"></iconify-icon>
+            </a>
+
+            <!-- TikTok -->
+            <a href="https://tiktok.com/@virarahmayantiii_" target="_blank" rel="noopener noreferrer" class="social-link">
+                <iconify-icon icon="ic:baseline-tiktok" width="24" height="24"></iconify-icon>
+            </a>
+
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/vira-rahmayanti-6216a8363" target="_blank" rel="noopener noreferrer" class="social-link">
+                <iconify-icon icon="mdi:linkedin" width="24" height="24"></iconify-icon>
+            </a>
+
+            <!-- GitHub -->
+            <a href="https://github.com/ViraRahmayantiLuniansyah" target="_blank" rel="noopener noreferrer" class="social-link">
+                <iconify-icon icon="mdi:github" width="24" height="24"></iconify-icon>
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script>
+/* ================= NAVBAR ================= */
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+
+if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
         });
+    });
+}
 
-        // Close menu when clicking a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navLinks.classList.remove('active');
+/* ================= SMOOTH SCROLL ================= */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth'
             });
-        });
+        }
+    });
+});
 
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+/* ================= TYPEWRITER FIX ================= */
+(function(){
+    const el = document.getElementById('typewriter-name');
+    if (!el) return;
 
-        // Typewriter effect for name
-        (function(){
-            const name = @json($settings['profile_name'] ?? 'Vira Rahmayanti Luniansyah');
-            const el = document.getElementById('typewriter-name');
-            if (!el) return;
-            let i = 0;
-            el.textContent = '';
-            function typeNext() {
-                if (i < name.length) {
-                    el.textContent += name.charAt(i);
-                    i++;
-                    const delay = (name.charAt(i-1) === ' ') ? 80 : 80; // adjust if needed
-                    setTimeout(typeNext, delay);
-                } else {
-                    // remove caret after a short pause (optional)
-                    setTimeout(()=>{ el.classList.remove('typewriter'); }, 800);
-                }
+    let name = "Vira Rahmayanti Luniansyah";
+
+    try {
+        name = @json($settings['profile_name'] ?? 'Vira Rahmayanti Luniansyah');
+    } catch (e) {}
+
+    let i = 0;
+    el.textContent = '';
+
+    function type() {
+        if (i < name.length) {
+            el.textContent += name.charAt(i);
+            i++;
+            setTimeout(type, 80);
+        }
+    }
+
+    setTimeout(type, 500);
+})();
+
+/* ================= COUNTER ================= */
+(function(){
+    const section = document.getElementById('about');
+    if (!section) return;
+
+    const counters = section.querySelectorAll('.stat-value');
+    let started = false;
+
+    function animate(el) {
+        const target = parseInt(el.getAttribute('data-target')) || 0;
+        let current = 0;
+        const step = Math.ceil(target / 40);
+
+        const interval = setInterval(() => {
+            current += step;
+            if (current >= target) {
+                el.textContent = target;
+                clearInterval(interval);
+            } else {
+                el.textContent = current;
             }
-            // small delay before starting to feel natural
-            setTimeout(typeNext, 400);
-        })();
+        }, 25);
+    }
 
-        // About counters animation (starts when #about enters viewport)
-        (function(){
-            const aboutSection = document.getElementById('about');
-            if (!aboutSection) return;
-
-            const counters = aboutSection.querySelectorAll('.stat-value');
-            let started = false;
-
-            function animateCounter(el) {
-                const target = parseInt(el.getAttribute('data-target')) || 0;
-                const duration = 1000; // ms
-                const start = 0;
-                const startTime = performance.now();
-
-                function step(now) {
-                    const progress = Math.min((now - startTime) / duration, 1);
-                    el.textContent = Math.floor(progress * (target - start) + start);
-                    if (progress < 1) requestAnimationFrame(step);
-                    else el.textContent = target;
-                }
-
-                requestAnimationFrame(step);
-            }
-
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && !started) {
-                        started = true;
-                        counters.forEach(c => animateCounter(c));
-                        observer.disconnect();
-                    }
-                });
-            }, { threshold: 0.2 });
-
-            observer.observe(aboutSection);
-        })();
-
-        // Form submission with AJAX
-        document.getElementById('contactForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData.entries());
-            
-            const successAlert = document.getElementById('successAlert');
-            const errorAlert = document.getElementById('errorAlert');
-            const submitButton = e.target.querySelector('button[type="submit"]');
-            
-            // Hide alerts
-            successAlert.classList.remove('show');
-            errorAlert.classList.remove('show');
-            
-            // Disable button and show loading
-            submitButton.disabled = true;
-            submitButton.textContent = 'Sending...';
-
-            try {
-                const response = await fetch('{{ route("contact.store") }}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                    },
-                    body: JSON.stringify(data)
-                });
-
-                const result = await response.json();
-                
-                if (result.success) {
-                    successAlert.textContent = result.message;
-                    successAlert.classList.add('show');
-                    e.target.reset();
-                } else {
-                    // Handle validation errors
-                    if (result.errors) {
-                        const errorMessages = Object.values(result.errors).flat().join(', ');
-                        errorAlert.textContent = errorMessages;
-                    } else {
-                        errorAlert.textContent = result.message || 'Terjadi kesalahan. Silakan coba lagi.';
-                    }
-                    errorAlert.classList.add('show');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                errorAlert.textContent = 'Terjadi kesalahan. Silakan coba lagi.';
-                errorAlert.classList.add('show');
-            } finally {
-                // Re-enable button
-                submitButton.disabled = false;
-                submitButton.textContent = 'Send Message';
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !started) {
+                started = true;
+                counters.forEach(c => animate(c));
             }
         });
-    </script>
-</body>
-</html>
+    }, { threshold: 0.3 });
+
+    observer.observe(section);
+})();
+
+/* ================= SCROLL REVEAL ================= */
+const reveals = document.querySelectorAll('.reveal');
+
+function revealOnScroll() {
+    const windowHeight = window.innerHeight;
+
+    reveals.forEach(el => {
+        const top = el.getBoundingClientRect().top;
+
+        if (top < windowHeight - 100) {
+            el.classList.add('active');
+        }
+    });
+}
+
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('load', revealOnScroll);
+
+/* ================= MOBILE TOUCH SLIDER ================= */
+document.querySelectorAll('.auto-slider').forEach(slider => {
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    slider.addEventListener('touchstart', (e) => {
+        isDown = true;
+        startX = e.touches[0].pageX;
+        scrollLeft = slider.scrollLeft;
+    });
+
+    slider.addEventListener('touchmove', (e) => {
+        if (!isDown) return;
+        const x = e.touches[0].pageX;
+        const walk = (x - startX) * 1.5;
+        slider.scrollLeft = scrollLeft - walk;
+    });
+
+    slider.addEventListener('touchend', () => {
+        isDown = false;
+    });
+});
+</script>
+
