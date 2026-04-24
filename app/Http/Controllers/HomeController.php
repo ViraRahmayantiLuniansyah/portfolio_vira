@@ -35,8 +35,8 @@ class HomeController extends Controller
         'pesan' => $request->pesan,
     ]);
 
-    // Kirim email (optional, boleh dihapus kalau error SMTP)
-    // Mail::to('virahmayanti09@gmail.com')->send(new ContactMail($request->all()));
+    // Kirim email
+Mail::to('virahmayanti09@gmail.com')->send(new ContactMail($request->all()));
 
     return back()->with('success', 'Pesan berhasil dikirim!');
 }
